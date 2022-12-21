@@ -14,9 +14,9 @@ const Signup = () => {
   const confirmPassword = useRef();
 
   // const dispatcher = useDispatch();
-  // const navigator = useNavigate();
+  const navigator = useNavigate();
   const onclicktoggle = () => {
-    //navigator("/login");
+    navigator("/login");
   };
   const onsubmit = (e) => {
     e.preventDefault();
@@ -94,9 +94,13 @@ const Signup = () => {
           </Card.Body>
         </Card>
         <div>
-          <button className="togglelogin" onClick={onclicktoggle}>
+          <Button
+            className="togglelogin"
+            variant="info"
+            onClick={onclicktoggle}
+          >
             Have an account?Login
-          </button>
+          </Button>{" "}
         </div>
       </div>
     </div>
