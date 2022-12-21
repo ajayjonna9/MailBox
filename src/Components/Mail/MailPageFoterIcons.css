@@ -1,0 +1,20 @@
+.bi {
+  background-color: white;
+  color: black;
+  margin-right: 20px;
+  border: 0px;
+  cursor: pointer;
+}
+.icons {
+  margin-top: 30px;
+  margin-left: 30px;
+}
+
+i.bi:hover {
+  background-color: bisque;
+}
+i.bi {
+  display: inline-block;
+
+  font-size: 25px;
+}
