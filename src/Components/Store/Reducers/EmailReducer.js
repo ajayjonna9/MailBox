@@ -1,6 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
-  emailarr: [],
+  emailarr: [
+    {
+      id: 1,
+      message: "hello this is email",
+      subject: "test",
+      email: "jonna@gmail.com",
+    },
+    {
+      id: 2,
+      message: "hello this is email",
+      subject: "test",
+      email: "jonna@gmail.com",
+    },
+  ],
+  clickedId: null,
+  isread: [false, false],
   id: 0,
 };
 const emailSlice = createSlice({
@@ -13,7 +28,12 @@ const emailSlice = createSlice({
         id: state.id + 1,
       };
       state.emailarr.push(newObj);
+      state.isread[state.id] = false;
       state.id += 1;
+    },
+    setRead: (state, action) => {
+      state.isread[action.payload] = true;
+      state.clickedId = Number(action.payload);
     },
   },
 });

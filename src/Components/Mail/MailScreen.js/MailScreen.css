@@ -1,6 +1,7 @@
 .mailitem {
   border-bottom: 1px solid;
   margin-top: 20px;
+  cursor: pointer;
 }
 .mailitememail {
   width: 30%;
@@ -8,4 +9,28 @@
 }
 .mailitemdata {
   margin: auto 0px;
+}
+.unread {
+  color: green;
+}
+.expandsubject {
+  margin: 10px auto 10px auto;
+  width: auto;
+}
+.expandmail {
+  display: inline-block;
+  position: relative;
+  bottom: 15px;
+}
+.expandmessage {
+  margin: 10px;
+}
+.bi-person-circle {
+  font-size: 35px !important;
+  margin-right: 10px !important;
+}
+.expandto {
+  position: relative;
+  bottom: 19px;
+  margin-left: 48px;
 }

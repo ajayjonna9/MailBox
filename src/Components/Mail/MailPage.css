@@ -1,7 +1,9 @@
 .mailpage {
-  position: relative;
-  width: 80%;
-  top: 50px;
-  left: 150px;
-  height: 70vh;
+  position: absolute;
+
+  width: 40%;
+  left: 700px;
+  right: 250px;
+  bottom: 10px;
+  z-index: 10;
 }

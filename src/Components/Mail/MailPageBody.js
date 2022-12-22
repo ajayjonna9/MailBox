@@ -47,12 +47,12 @@ const MailPageBody = () => {
           as="textarea"
           placeholder="Leave a comment here"
           className="mt-2 h-auto"
-          rows="12"
+          rows="8"
           ref={message}
           required
         />
         <div className="d-flex flex-row">
-          <Button variant="success" type="submit" className="mt-4 mb-5">
+          <Button variant="success" type="submit" className="mt-4 mb-1">
             submit
           </Button>
           <MailPageFooterIcons />

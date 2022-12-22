@@ -8,7 +8,7 @@ import "./Header.css";
 
 function Header() {
   return (
-    <Navbar bg="dark" expand="lg">
+    <Navbar bg="dark" expand="lg" sticky="top">
       <Container fluid>
         <Navbar.Brand href="#" className="navbarHeading">
           Gmail
