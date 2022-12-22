@@ -1,0 +1,22 @@
+.compose {
+}
+.mailoptionscontainer {
+  width: 15%;
+  /* margin-top: 30px; */
+  padding-top: 20px;
+  padding-bottom: 20px;
+  height: 100vh;
+  background-color: antiquewhite;
+}
+.mailoptions {
+  margin: 10px 10px 0px 10px;
+}
+.mailbuttons {
+  background-color: antiquewhite !important;
+  border: 0px !important;
+
+  color: black !important;
+}
+.mailbuttons:hover {
+  background-color: skyblue !important;
+}

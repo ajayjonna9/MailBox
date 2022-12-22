@@ -1,0 +1,10 @@
+.searchnavbar {
+  margin-left: 300px;
+}
+input[type="search"] {
+  width: 500px;
+}
+.navbarHeading {
+  color: skyblue !important;
+  margin-left: 90px;
+}

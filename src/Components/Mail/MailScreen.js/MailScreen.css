@@ -1,0 +1,11 @@
+.mailitem {
+  border-bottom: 1px solid;
+  margin-top: 20px;
+}
+.mailitememail {
+  width: 30%;
+  margin: auto 0px;
+}
+.mailitemdata {
+  margin: auto 0px;
+}
