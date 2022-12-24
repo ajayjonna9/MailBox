@@ -13,7 +13,7 @@ const Login = () => {
   const email = useRef();
   const password = useRef();
   const [showPassword, setShowPassword] = useState(false);
-  //const dispatcher = useDispatch();
+  const dispatcher = useDispatch();
 
   const navigator = useNavigate();
   const onclicktoggle = () => {
@@ -48,9 +48,9 @@ const Login = () => {
           email: res.data.email,
         };
 
-        //dispatcher(authActions.addtoken(values));
+        dispatcher(authActions.addtoken(values));
         console.log("login success");
-        //navigator("/");
+        navigator("/home");
       } catch (err) {
         alert("somthing went wrong, please try again");
       }

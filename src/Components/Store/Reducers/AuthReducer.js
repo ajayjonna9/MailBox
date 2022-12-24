@@ -28,6 +28,7 @@ const authSlice = createSlice({
       state.userID = null;
       localStorage.removeItem("token");
       localStorage.removeItem("email");
+      localStorage.removeItem("clickedid");
 
       state.isLoggedin = false;
     },

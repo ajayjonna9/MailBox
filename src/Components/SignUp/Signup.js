@@ -13,7 +13,7 @@ const Signup = () => {
   const password = useRef();
   const confirmPassword = useRef();
 
-  // const dispatcher = useDispatch();
+  const dispatcher = useDispatch();
   const navigator = useNavigate();
   const onclicktoggle = () => {
     navigator("/login");
@@ -45,7 +45,7 @@ const Signup = () => {
             token: res.data.idToken,
             email: res.data.email,
           };
-          // dispatcher(authActions.addtoken(values));
+          dispatcher(authActions.addtoken(values));
           console.log("signup  success");
           // navigator("/");
         } catch (err) {

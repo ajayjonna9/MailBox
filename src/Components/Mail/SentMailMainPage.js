@@ -18,7 +18,7 @@ const SentMailMainPage = () => {
       <Header />
       <div className="d-flex flex-row">
         <MailOptions />
-        <MailScreen mailarr={mailarr} readarr={MailRead} method={"sent"} />
+        <MailScreen mailarr={mailarr} readarr={[]} method={"sent"} />
       </div>
       {isCompose && <MailPage />}
     </div>

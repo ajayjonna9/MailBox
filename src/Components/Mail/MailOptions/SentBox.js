@@ -1,14 +1,31 @@
 import React from "react";
 import { Button } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { emailActions } from "../../Store/Reducers/EmailReducer";
+import { mailActions } from "../../Store/Reducers/MailactionsReducer";
+
 import "./MailOptions.css";
 const SentBox = () => {
   const navigator = useNavigate();
+  const dispatcher = useDispatch();
+  const sentbox = useSelector(
+    (state) => state.mailactions.selectOption.sentbox
+  );
+
   const onClickSentBox = () => {
     navigator("/sent");
+    dispatcher(mailActions.setSentBox());
   };
   return (
-    <Button className="mailoptions mailbuttons" onClick={onClickSentBox}>
+    <Button
+      className={
+        sentbox
+          ? "mailoptions mailbuttons onclickbtn"
+          : "mailoptions mailbuttons"
+      }
+      onClick={onClickSentBox}
+    >
       SentBox
     </Button>
   );

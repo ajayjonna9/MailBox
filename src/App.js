@@ -24,12 +24,40 @@ function App() {
   const userID = useSelector((state) => state.auth.userID);
   // const emaildata = useSelector((state) => state.email);
   const dispatcher = useDispatch();
+  useEffect(() => {
+    async function getData() {
+      try {
+        console.log("setinterval");
+        const res = await axios.get(
+          `https://mailbox-d4b6e-default-rtdb.firebaseio.com/${userID}.json`
+        );
+        console.log("fetch", res);
+        if (res.data.inbox) {
+          for (let i in res.data.inbox) {
+            const obj = {
+              ...res.data.inbox[i],
+              id: i,
+            };
+
+            dispatcher(emailActions.addInboxmailtoLocal(obj));
+          }
+        }
+      } catch (err) {
+        alert("wrong");
+      }
+    }
+    const timer = setInterval(getData, 5000);
+    // return () => {
+    //   clearInterval(timer);
+    // };
+  }, []);
 
   useEffect(() => {
     if (isFirst) {
       isFirst = false;
       async function getData() {
         try {
+          console.log("setinterval");
           const res = await axios.get(
             `https://mailbox-d4b6e-default-rtdb.firebaseio.com/${userID}.json`
           );
@@ -40,25 +68,25 @@ function App() {
                 ...res.data.sent[i],
                 id: i,
               };
-              console.log(obj);
+              console.log("sent", obj);
 
               dispatcher(emailActions.addSentEmailToLocal(obj));
-              console.log("hi");
             }
-            if (res.data.inbox !== null) {
+            if (res.data.inbox) {
               for (let i in res.data.inbox) {
                 const obj = {
                   ...res.data.inbox[i],
                   id: i,
                 };
-                console.log(obj);
+                console.log("inbox", obj);
 
                 dispatcher(emailActions.addInboxmailtoLocal(obj));
-                console.log("hi");
               }
             }
             console.log("emaildata...", res.data.emaildata);
-            dispatcher(emailActions.dataFromDB(res.data.emaildata));
+            if (res.data.emaildata) {
+              dispatcher(emailActions.dataFromDB(res.data.emaildata));
+            }
           }
         } catch {
           alert("somthing Wrong...");
@@ -67,15 +95,15 @@ function App() {
       getData();
       return;
     }
+
     async function postData() {
-      const obj = {
-        sentBoxReadarr: sentreadarr,
-        inBoxReadarr: inboxreadarr,
-      };
+      // sentBoxReadarr: sentreadarr,
+
       try {
+        console.log("hello..............");
         const res = await axios.put(
           `https://mailbox-d4b6e-default-rtdb.firebaseio.com/${userID}/emaildata.json`,
-          obj
+          inboxreadarr
         );
         console.log(res);
       } catch {
@@ -83,7 +111,7 @@ function App() {
       }
     }
     postData();
-  }, [sentreadarr, inboxreadarr]);
+  }, [inboxreadarr]);
   return (
     <div className="hi">
       <Routes>

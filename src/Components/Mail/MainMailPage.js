@@ -15,7 +15,7 @@ const MainMailPage = () => {
   return (
     <div>
       <Header />
-      {console.log("arrr,", mailarr)}
+      {console.log("arrr,", mailarr, MailRead)}
       <div className="d-flex flex-row">
         <MailOptions />
         <MailScreen mailarr={mailarr} readarr={MailRead} method={"inbox"} />

@@ -4,9 +4,18 @@ import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { authActions } from "../../Store/Reducers/AuthReducer";
 import "./Header.css";
 
 function Header() {
+  const dispatcher = useDispatch();
+  const navigator = useNavigate();
+  const onLogout = () => {
+    dispatcher(authActions.onLogout());
+    navigator("/login");
+  };
   return (
     <Navbar bg="dark" expand="lg" sticky="top">
       <Container fluid>
@@ -24,6 +33,9 @@ function Header() {
             />
             <Button variant="outline-success">Search</Button>
           </Form>
+          <Button variant="info" className="ms-5" onClick={onLogout}>
+            Logout
+          </Button>
         </Navbar.Collapse>
       </Container>
     </Navbar>
