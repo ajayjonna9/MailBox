@@ -10,7 +10,7 @@ import "./MailScreen.css";
 const MailItem = (props) => {
   let isread = false;
   const clickedId = useSelector((state) => state.email.clickedId);
-  const isRead = useSelector((state) => state.email.isread);
+  // const sentMailRead = useSelector((state) => state.email.sentMailRead);
   const userID = useSelector((state) => state.auth.userID);
   // if (isRead[clickedId].id === props.id) {
   //    isread=true
@@ -24,21 +24,32 @@ const MailItem = (props) => {
         `https://mailbox-d4b6e-default-rtdb.firebaseio.com/${userID}/sent/${props.id}.json`
       );
       console.log("delete", res);
-      dispatcher(emailActions.deleteMail(props.id));
+      if (props.method === "sent") {
+        dispatcher(emailActions.deleteSentMail(props.id));
+      } else if (props.method === "inbox") {
+        dispatcher(emailActions.deleteInboxMail(props.id));
+      }
     } catch {
       alert("wrong");
     }
   };
   const setRead = () => {
-    dispatcher(emailActions.setRead(props.id));
-    navigator(`/:${props.id}`);
+    if (props.method === "sent") {
+      dispatcher(emailActions.setSentMailRead(props.id));
+      navigator(`/sent/:${props.id}`);
+    } else if (props.method === "inbox") {
+      dispatcher(emailActions.setInboxMailRead(props.id));
+      navigator(`/:${props.id}`);
+    }
   };
   return (
     <div className="mailitem d-flex flex-row">
       <div className=" flex-grow-1 d-flex flex-row" onClick={setRead}>
-        {console.log("gg", isRead[props.index])}
-        <span className={!isRead[props.index] ? "unread" : "read"}>●</span>
-
+        {console.log("gg", props.MailReadarr[props.index])}
+        <span className={!props.MailReadarr[props.index] ? "unread" : "read"}>
+          ●
+        </span>
+        {console.log("props", props)}
         <h6 className="ms-3 w-20 mailitememail">{props.messageto}</h6>
         <h6 className="ms-3 mailitemdata">: {props.subject}</h6>
         <p className="ms-3 mailitemdata">{props.message}</p>

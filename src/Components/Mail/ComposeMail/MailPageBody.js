@@ -3,12 +3,14 @@ import { Card, Form, Button, CloseButton } from "react-bootstrap";
 import MailPageFooterIcons from "./MailPageFooterIcons";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { emailActions } from "../Store/Reducers/EmailReducer";
+
 import "./MailPage.css";
-import { mailActions } from "../Store/Reducers/MailactionsReducer";
+
+import { emailActions } from "../../Store/Reducers/EmailReducer";
+import { mailActions } from "../../Store/Reducers/MailactionsReducer";
 
 const MailPageBody = () => {
-  const id = useSelector((state) => state.email.id);
+  // const id = useSelector((state) => state.email.id);
   const userid = useSelector((state) => state.auth.userID);
   const dispatcher = useDispatch();
   const email = useRef();
@@ -56,7 +58,7 @@ const MailPageBody = () => {
           ...obj,
           id: resdata.data.name,
         };
-        dispatcher(emailActions.addEmailToLocal(newobj));
+        dispatcher(emailActions.addSentEmailToLocal(newobj));
       } catch (err) {
         alert("somthing Wromg");
       }

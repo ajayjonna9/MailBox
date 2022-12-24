@@ -1,48 +1,75 @@
 import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
-  emailarr: [],
   sentMailarr: [],
+  inboxMailarr: [],
   clickedId: localStorage.getItem("clickedid"),
-  isread: [],
+  sentMailRead: [],
+  inBoxMailRead: [],
   id: 0,
 };
 const emailSlice = createSlice({
   name: "email",
   initialState: initialState,
   reducers: {
-    addEmailToLocal: (state, action) => {
+    addSentEmailToLocal: (state, action) => {
       console.log("hello");
       if (action.payload === null) {
-        state.emailarr = [];
+        state.sentMailarr = [];
       } else {
-        state.emailarr.push(action.payload);
+        state.sentMailarr.push(action.payload);
       }
     },
-    setRead: (state, action) => {
-      const index = state.emailarr.findIndex(
+    setSentMailRead: (state, action) => {
+      const index = state.sentMailarr.findIndex(
         (item) => item.id === action.payload
       );
-      state.isread[index] = true;
+      state.sentMailRead[index] = true;
       state.clickedId = index;
       localStorage.setItem("clickedid", index);
       console.log(index);
     },
     dataFromDB: (state, action) => {
-      state.isread = action.payload.readarr || [];
+      state.sentMailRead = action.payload.sentBoxReadarr || [];
+      state.inBoxMailRead = action.payload.inBoxReadarr || [];
     },
-    addSentmailtoLocal: (state, action) => {
-      state.sentMailarr.push(action.id);
+    addInboxmailtoLocal: (state, action) => {
+      if (action.payload === null) {
+        state.inboxMailarr = [];
+      } else {
+        state.inboxMailarr.push(action.payload);
+      }
     },
-    deleteMail: (state, action) => {
-      const index = state.emailarr.findIndex(
+    setInboxMailRead: (state, action) => {
+      const index = state.inboxMailarr.findIndex(
         (item) => item.id === action.payload
       );
-      const newarr = state.emailarr.filter(
+      state.inboxMailarr[index] = true;
+      state.clickedId = index;
+      localStorage.setItem("clickedid", index);
+      console.log(index);
+    },
+
+    deleteSentMail: (state, action) => {
+      const index = state.sentMailarr.findIndex(
+        (item) => item.id === action.payload
+      );
+      const newarr = state.sentMailarr.filter(
         (item) => item.id !== action.payload
       );
-      state.emailarr = [...newarr];
-      const newread = state.isread.filter((item, ind) => ind !== index);
-      state.isread = [...newread];
+      state.sentMailarr = [...newarr];
+      const newread = state.sentMailRead.filter((item, ind) => ind !== index);
+      state.sentMailRead = [...newread];
+    },
+    deleteInboxMail: (state, action) => {
+      const index = state.inboxMailarr.findIndex(
+        (item) => item.id === action.payload
+      );
+      const newarr = state.inboxMailarr.filter(
+        (item) => item.id !== action.payload
+      );
+      state.inboxMailarr = [...newarr];
+      const newread = state.inBoxMailRead.filter((item, ind) => ind !== index);
+      state.inBoxMailRead = [...newread];
     },
   },
 });

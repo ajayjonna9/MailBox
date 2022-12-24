@@ -7,20 +7,22 @@ import Login from "./Components/Login/Login";
 import { Route, Routes } from "react-router-dom";
 import Forgetpassword from "./Components/ForgetPassWord/ForgetPassword";
 
-import MailMainPage from "./Components/Mail/MailMainPage";
-import ExpandMail from "./Components/Mail/MailScreen.js/ExpandMail";
-import ExpandMain from "./Components/Mail/MailScreen.js/ExpandMain";
-
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { emailActions } from "./Components/Store/Reducers/EmailReducer";
+
+import MainMailPage from "./Components/Mail/MainMailPage";
+import MainExpand from "./Components/Mail/MainExpand";
+import SentMailMainPage from "./Components/Mail/SentMailMainPage";
+import SentExpandMain from "./Components/Mail/SentExpandMain";
 let isFirst = true;
 const arr = [1, 2, 3, 4];
 function App() {
-  const readarr = useSelector((state) => state.email.isread);
-  const clickedid = useSelector((state) => state.email.clickedId);
+  const sentreadarr = useSelector((state) => state.email.sentMailRead);
+  const inboxreadarr = useSelector((state) => state.email.inBoxMailRead);
+  // const clickedid = useSelector((state) => state.email.clickedId);
   const userID = useSelector((state) => state.auth.userID);
-  const emaildata = useSelector((state) => state.email);
+  // const emaildata = useSelector((state) => state.email);
   const dispatcher = useDispatch();
 
   useEffect(() => {
@@ -40,8 +42,20 @@ function App() {
               };
               console.log(obj);
 
-              dispatcher(emailActions.addEmailToLocal(obj));
+              dispatcher(emailActions.addSentEmailToLocal(obj));
               console.log("hi");
+            }
+            if (res.data.inbox !== null) {
+              for (let i in res.data.inbox) {
+                const obj = {
+                  ...res.data.inbox[i],
+                  id: i,
+                };
+                console.log(obj);
+
+                dispatcher(emailActions.addInboxmailtoLocal(obj));
+                console.log("hi");
+              }
             }
             console.log("emaildata...", res.data.emaildata);
             dispatcher(emailActions.dataFromDB(res.data.emaildata));
@@ -55,8 +69,8 @@ function App() {
     }
     async function postData() {
       const obj = {
-        readarr: readarr,
-        clickedid: clickedid,
+        sentBoxReadarr: sentreadarr,
+        inBoxReadarr: inboxreadarr,
       };
       try {
         const res = await axios.put(
@@ -69,7 +83,7 @@ function App() {
       }
     }
     postData();
-  }, [emaildata]);
+  }, [sentreadarr, inboxreadarr]);
   return (
     <div className="hi">
       <Routes>
@@ -77,8 +91,10 @@ function App() {
         <Route path="/login" element={<Login />}></Route>
         <Route path="/forgetpassword" element={<Forgetpassword />}></Route>
 
-        <Route path="/home" element={<MailMainPage />}></Route>
-        <Route path="/:id" element={<ExpandMain />}></Route>
+        <Route path="/home" element={<MainMailPage />}></Route>
+        <Route path="/:id" element={<MainExpand />}></Route>
+        <Route path="/sent" element={<SentMailMainPage />}></Route>
+        <Route path="/sent/:id" element={<SentExpandMain />}></Route>
       </Routes>
     </div>
   );
