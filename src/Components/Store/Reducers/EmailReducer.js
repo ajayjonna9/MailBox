@@ -1,21 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
-  emailarr: [
-    {
-      id: 1,
-      message: "hello this is email",
-      subject: "test",
-      email: "jonna@gmail.com",
-    },
-    {
-      id: 2,
-      message: "hello this is email",
-      subject: "test",
-      email: "jonna@gmail.com",
-    },
-  ],
-  clickedId: null,
-  isread: [false, false],
+  emailarr: [],
+  sentMailarr: [],
+  clickedId: localStorage.getItem("clickedid"),
+  isread: [],
   id: 0,
 };
 const emailSlice = createSlice({
@@ -23,17 +11,38 @@ const emailSlice = createSlice({
   initialState: initialState,
   reducers: {
     addEmailToLocal: (state, action) => {
-      const newObj = {
-        ...action.payload,
-        id: state.id + 1,
-      };
-      state.emailarr.push(newObj);
-      state.isread[state.id] = false;
-      state.id += 1;
+      console.log("hello");
+      if (action.payload === null) {
+        state.emailarr = [];
+      } else {
+        state.emailarr.push(action.payload);
+      }
     },
     setRead: (state, action) => {
-      state.isread[action.payload] = true;
-      state.clickedId = Number(action.payload);
+      const index = state.emailarr.findIndex(
+        (item) => item.id === action.payload
+      );
+      state.isread[index] = true;
+      state.clickedId = index;
+      localStorage.setItem("clickedid", index);
+      console.log(index);
+    },
+    dataFromDB: (state, action) => {
+      state.isread = action.payload.readarr || [];
+    },
+    addSentmailtoLocal: (state, action) => {
+      state.sentMailarr.push(action.id);
+    },
+    deleteMail: (state, action) => {
+      const index = state.emailarr.findIndex(
+        (item) => item.id === action.payload
+      );
+      const newarr = state.emailarr.filter(
+        (item) => item.id !== action.payload
+      );
+      state.emailarr = [...newarr];
+      const newread = state.isread.filter((item, ind) => ind !== index);
+      state.isread = [...newread];
     },
   },
 });

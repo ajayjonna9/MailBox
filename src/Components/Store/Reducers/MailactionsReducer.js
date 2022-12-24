@@ -9,6 +9,9 @@ const mailSlice = createSlice({
     setCompose: (state) => {
       state.isCompose = true;
     },
+    resetCompose: (state) => {
+      state.isCompose = false;
+    },
   },
 });
 const mailActions = mailSlice.actions;
