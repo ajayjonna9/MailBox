@@ -10,8 +10,7 @@ import ExpandMail from "./MailScreen.js/ExpandMail";
 const SentMailMainPage = () => {
   const isCompose = useSelector((state) => state.mailactions.isCompose);
   const mailarr = useSelector((state) => state.email.sentMailarr);
-  // const inBoxEmail = useSelector((state) => state.email.inboxMailarr[clickedid]);
-  //  const sentEmail = useSelector((state) => state.email.sentMailarr[clickedid]);
+
   const MailRead = useSelector((state) => state.email.sentMailRead);
   return (
     <div>

@@ -2,7 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   token: localStorage.getItem("token"),
   userID: localStorage.getItem("email"),
+  useremail: localStorage.getItem("useremail"),
   isLoggedin: !!localStorage.getItem("token"),
+  timer: null,
+  isFirst: true,
 };
 const authSlice = createSlice({
   name: "auth",
@@ -22,6 +25,9 @@ const authSlice = createSlice({
       localStorage.setItem("token", action.payload.token);
       localStorage.setItem("email", newMail);
       state.isLoggedin = true;
+      state.isFirst = true;
+      state.useremail = action.payload.email;
+      localStorage.setItem("useremail", action.payload.email);
     },
     onLogout: (state) => {
       state.token = null;
@@ -31,6 +37,11 @@ const authSlice = createSlice({
       localStorage.removeItem("clickedid");
 
       state.isLoggedin = false;
+      state.isFirst = true;
+      clearTimeout(window.interval);
+    },
+    resetIsFirst: (state) => {
+      state.isFirst = false;
     },
   },
 });

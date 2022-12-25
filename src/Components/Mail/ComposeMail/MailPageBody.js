@@ -12,6 +12,7 @@ import { mailActions } from "../../Store/Reducers/MailactionsReducer";
 const MailPageBody = () => {
   // const id = useSelector((state) => state.email.id);
   const userid = useSelector((state) => state.auth.userID);
+  const useremail = useSelector((state) => state.auth.useremail);
   const dispatcher = useDispatch();
   const email = useRef();
   const subject = useRef();
@@ -25,11 +26,7 @@ const MailPageBody = () => {
       emailTo: email.current.value,
       subject: subject.current.value,
       message: message.current.value,
-    };
-    const senderobj = {
-      subject: subject.current.value,
-      message: message.current.value,
-      emailfrom: userid,
+      emailfrom: useremail,
     };
 
     console.log(obj);
@@ -45,7 +42,7 @@ const MailPageBody = () => {
       try {
         const res = await axios.post(
           `https://mailbox-d4b6e-default-rtdb.firebaseio.com/${newMail}/inbox.json`,
-          senderobj
+          obj
         );
         console.log(res);
         const resdata = await axios.post(
@@ -59,6 +56,7 @@ const MailPageBody = () => {
           id: resdata.data.name,
         };
         dispatcher(emailActions.addSentEmailToLocal(newobj));
+        alert("email sent");
       } catch (err) {
         alert("somthing Wromg");
       }

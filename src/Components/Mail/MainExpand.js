@@ -7,9 +7,13 @@ import { useSelector } from "react-redux";
 import MailScreenHeader from "./MailScreen.js/MailScreenHeader/MailScreenHeader";
 
 const MainExpand = () => {
+  // const clickedid = localStorage.getItem("clickedid");
+  // const isCompose = useSelector((state) => state.mailactions.isCompose);
+  // const inBoxEmail = useSelector((state) => state.email.inboxMailarr);
+  // const Email = useSelector((state) => state.email.inboxMailarr[clickedid]);
   const clickedid = localStorage.getItem("clickedid");
   const isCompose = useSelector((state) => state.mailactions.isCompose);
-  const inBoxEmail = useSelector((state) => state.email.inboxMailarr);
+  const inBoxEmail = useSelector((state) => state.email.sentMailarr);
   const Email = useSelector((state) => state.email.inboxMailarr[clickedid]);
 
   return (
@@ -22,7 +26,7 @@ const MainExpand = () => {
         <div className="w-100">
           <div className="d-flux flux-column">
             <MailScreenHeader />
-            <ExpandMail email={Email} />
+            <ExpandMail email={Email} method={"inbox"} />
           </div>
         </div>
       </div>

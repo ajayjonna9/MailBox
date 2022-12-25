@@ -26,13 +26,17 @@ const MailItem = (props) => {
   // }
   const onDelete = async () => {
     try {
-      const res = await axios.delete(
-        `https://mailbox-d4b6e-default-rtdb.firebaseio.com/${userID}/sent/${props.id}.json`
-      );
-      console.log("delete", res);
       if (props.method === "sent") {
+        const res = await axios.delete(
+          `https://mailbox-d4b6e-default-rtdb.firebaseio.com/${userID}/sent/${props.id}.json`
+        );
+        console.log("delete", res);
+
         dispatcher(emailActions.deleteSentMail(props.id));
       } else if (props.method === "inbox") {
+        const res = await axios.delete(
+          `https://mailbox-d4b6e-default-rtdb.firebaseio.com/${userID}/inbox/${props.id}.json`
+        );
         dispatcher(emailActions.deleteInboxMail(props.id));
       }
     } catch {
@@ -62,7 +66,9 @@ const MailItem = (props) => {
           ●
         </span>
         {console.log("props", props)}
-        <h6 className="ms-3 w-20 mailitememail">{props.messageto}</h6>
+        <h6 className="ms-3 w-20 mailitememail">
+          {props.method === "inbox" ? props.messagefrom : props.messageto}
+        </h6>
         <h6 className="ms-3 mailitemdata">: {props.subject}</h6>
         <p className="ms-3 mailitemdata">
           {props.message.length > 10 ? message : props.message}

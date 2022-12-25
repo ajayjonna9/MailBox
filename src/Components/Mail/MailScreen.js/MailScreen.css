@@ -38,9 +38,17 @@
   position: relative;
   bottom: 19px;
   margin-left: 48px;
+  font-style: italic;
 }
 .deletebutton {
   /* bottom: 5px; */
   right: 10px;
   bottom: 5px;
+}
+.mailscreenbackground {
+  background-image: url("../../photos/email1.jpg");
+  background-repeat: no-repeat;
+  height: 100vh;
+  background-size: cover;
+  color: white;
 }

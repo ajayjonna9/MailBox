@@ -9,7 +9,7 @@ const ExpandMail = (props) => {
   // const inBoxEmail = useSelector((state) => state.email.inboxMailarr[clickedid]);
   // console.log("clickid.", clickedid);
   return (
-    <div>
+    <div className="mailscreenbackgroun">
       <Card>
         <Card.Body>
           {props.email && (
@@ -22,8 +22,17 @@ const ExpandMail = (props) => {
               <hr />
               <div>
                 <i class="bi bi-person-circle"> </i>{" "}
-                <h6 className="expandmail ">{props.email.emailTo}</h6>
-                <p className="expandto">To:</p>
+                <h6 className="expandmail ">
+                  {props.method === "inbox"
+                    ? props.email.emailfrom
+                    : props.email.emailTo}
+                </h6>
+                <p className="expandto">
+                  To :
+                  {props.method === "inbox"
+                    ? " " + props.email.emailTo
+                    : " " + props.email.emailfrom}
+                </p>
               </div>
               <hr />
               <p className="expandmessage my-4">{props.email.message}</p>

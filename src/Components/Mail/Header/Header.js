@@ -7,6 +7,7 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { authActions } from "../../Store/Reducers/AuthReducer";
+import { emailActions } from "../../Store/Reducers/EmailReducer";
 import "./Header.css";
 
 function Header() {
@@ -14,6 +15,7 @@ function Header() {
   const navigator = useNavigate();
   const onLogout = () => {
     dispatcher(authActions.onLogout());
+    dispatcher(emailActions.onLogoutEmail());
     navigator("/login");
   };
   return (

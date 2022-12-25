@@ -21,7 +21,7 @@ const SentExpandMain = () => {
         <div className="w-100">
           <div className="d-flux flux-column">
             <MailScreenHeader />
-            <ExpandMail email={Email} />
+            <ExpandMail email={Email} method={"sent"} />
           </div>
         </div>
       </div>

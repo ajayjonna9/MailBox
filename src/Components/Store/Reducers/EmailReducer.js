@@ -81,6 +81,11 @@ const emailSlice = createSlice({
       const newread = state.inBoxMailRead.filter((item, ind) => ind !== index);
       state.inBoxMailRead = [...newread];
     },
+    onLogoutEmail: (state) => {
+      state.sentMailarr = [];
+      state.inboxMailarr = [];
+      state.inBoxMailRead = [];
+    },
   },
 });
 const emailActions = emailSlice.actions;

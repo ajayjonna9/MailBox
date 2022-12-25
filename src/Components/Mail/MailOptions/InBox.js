@@ -10,6 +10,9 @@ const InBox = () => {
   const dispatcher = useDispatch();
 
   const inbox = useSelector((state) => state.mailactions.selectOption.inbox);
+  const inboxarr = useSelector((state) => state.email.inboxMailarr);
+  const readarr = useSelector((state) => state.email.inBoxMailRead);
+  const count = inboxarr.length - readarr.length;
   const onClickInbox = () => {
     navigator("/home");
     dispatcher(mailActions.setInBox());
@@ -21,7 +24,7 @@ const InBox = () => {
       }
       onClick={onClickInbox}
     >
-      InBox
+      InBox<span className="inboxcount">{count}</span>
     </Button>
   );
 };

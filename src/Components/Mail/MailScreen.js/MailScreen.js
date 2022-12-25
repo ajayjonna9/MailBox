@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import ExpandMail from "./ExpandMail";
 import MailItem from "./MailItem";
@@ -12,9 +12,14 @@ const MailScreen = (props) => {
   // //  const sentEmail = useSelector((state) => state.email.sentMailarr[clickedid]);
   // const sentMailRead = useSelector((state) => state.email.sentMailRead);
   const mailarr = useSelector((state) => state.email.inboxMailarr);
+  const [message, setMessage] = useState("Loading...");
+
+  setTimeout(() => {
+    setMessage("No Emails");
+  }, 2000);
 
   return (
-    <div className="w-100">
+    <div className="w-100 mailscreenbackground">
       <div className="d-flux flux-column">
         <MailScreenHeader />
         <div className=" m-3">
@@ -29,13 +34,14 @@ const MailScreen = (props) => {
                   subject={item.subject}
                   id={item.id}
                   messageto={item.emailTo}
+                  messagefrom={item.emailfrom}
                   MailReadarr={props.readarr}
                   method={props.method}
                 />
               );
             })
           ) : (
-            <h3 className="ms-5">Loading....</h3>
+            <h3 className="ms-5">{message}</h3>
           )}
           {}
         </div>

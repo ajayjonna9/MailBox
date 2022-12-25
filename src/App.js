@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import "./App.css";
 import Signup from "./Components/SignUp/Signup";
 import Login from "./Components/Login/Login";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Forgetpassword from "./Components/ForgetPassWord/ForgetPassword";
 
 import axios from "axios";
@@ -15,46 +15,53 @@ import MainMailPage from "./Components/Mail/MainMailPage";
 import MainExpand from "./Components/Mail/MainExpand";
 import SentMailMainPage from "./Components/Mail/SentMailMainPage";
 import SentExpandMain from "./Components/Mail/SentExpandMain";
-let isFirst = true;
-const arr = [1, 2, 3, 4];
+import { authActions } from "./Components/Store/Reducers/AuthReducer";
+
 function App() {
   const sentreadarr = useSelector((state) => state.email.sentMailRead);
   const inboxreadarr = useSelector((state) => state.email.inBoxMailRead);
   // const clickedid = useSelector((state) => state.email.clickedId);
   const userID = useSelector((state) => state.auth.userID);
+  const isloggin = useSelector((state) => state.auth.isLoggedin);
+  const isFirst = useSelector((state) => state.auth.isFirst);
+
   // const emaildata = useSelector((state) => state.email);
   const dispatcher = useDispatch();
-  useEffect(() => {
-    async function getData() {
-      try {
-        console.log("setinterval");
-        const res = await axios.get(
-          `https://mailbox-d4b6e-default-rtdb.firebaseio.com/${userID}.json`
-        );
-        console.log("fetch", res);
-        if (res.data.inbox) {
-          for (let i in res.data.inbox) {
-            const obj = {
-              ...res.data.inbox[i],
-              id: i,
-            };
 
-            dispatcher(emailActions.addInboxmailtoLocal(obj));
-          }
-        }
-      } catch (err) {
-        alert("wrong");
-      }
-    }
-    const timer = setInterval(getData, 5000);
-    // return () => {
-    //   clearInterval(timer);
-    // };
-  }, []);
+  // useEffect(() => {
+  //   if (isloggin) {
+  //     async function getDataa() {
+  //       try {
+  //         console.log("setinterval..");
+  //         const res = await axios.get(
+  //           `https://mailbox-d4b6e-default-rtdb.firebaseio.com/${userID}.json`
+  //         );
+  //         if (res.data) {
+  //           if (res.data.inbox) {
+  //             for (let i in res.data.inbox) {
+  //               const obj = {
+  //                 ...res.data.inbox[i],
+  //                 id: i,
+  //               };
+
+  //               dispatcher(emailActions.addInboxmailtoLocal(obj));
+  //             }
+  //           }
+  //         }
+  //       } catch (err) {
+  //         alert("wrong");
+  //       }
+  //     }
+
+  //     window.interval = setInterval(getDataa, 5000);
+  //     return () => {
+  //       clearInterval(window.interval);
+  //     };
+  //   }
+  // }, [isloggin]);
 
   useEffect(() => {
     if (isFirst) {
-      isFirst = false;
       async function getData() {
         try {
           console.log("setinterval");
@@ -93,6 +100,7 @@ function App() {
         }
       }
       getData();
+      dispatcher(authActions.resetIsFirst());
       return;
     }
 
@@ -111,7 +119,7 @@ function App() {
       }
     }
     postData();
-  }, [inboxreadarr]);
+  }, [inboxreadarr, isFirst]);
   return (
     <div className="hi">
       <Routes>
@@ -119,7 +127,16 @@ function App() {
         <Route path="/login" element={<Login />}></Route>
         <Route path="/forgetpassword" element={<Forgetpassword />}></Route>
 
-        <Route path="/home" element={<MainMailPage />}></Route>
+        <Route
+          path="/home"
+          element={
+            isloggin ? (
+              <MainMailPage />
+            ) : (
+              <Navigate to="/login" replace={true} />
+            )
+          }
+        ></Route>
         <Route path="/:id" element={<MainExpand />}></Route>
         <Route path="/sent" element={<SentMailMainPage />}></Route>
         <Route path="/sent/:id" element={<SentExpandMain />}></Route>
