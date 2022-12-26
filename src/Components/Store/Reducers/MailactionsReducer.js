@@ -1,7 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   isCompose: false,
-  selectOption: { inbox: true, sentbox: false },
+  selectOption:
+    localStorage.getItem("mailoptions") ||
+    JSON.stringify({
+      inbox: true,
+      sentbox: false,
+    }),
 };
 const mailSlice = createSlice({
   name: "mail",
@@ -15,12 +20,26 @@ const mailSlice = createSlice({
     },
 
     setSentBox: (state) => {
-      state.selectOption.inbox = false;
-      state.selectOption.sentbox = true;
+      localStorage.setItem(
+        "mailoptions",
+        JSON.stringify({ inbox: false, sentbox: true })
+      );
+      state.selectOption = JSON.stringify({ inbox: false, sentbox: true });
     },
+
     setInBox: (state) => {
-      state.selectOption.inbox = true;
-      state.selectOption.sentbox = false;
+      localStorage.setItem(
+        "mailoptions",
+        JSON.stringify({ inbox: true, sentbox: false })
+      );
+      state.selectOption = JSON.stringify({ inbox: true, sentbox: false });
+    },
+    setingMailOptions: (state) => {
+      localStorage.setItem(
+        "mailoptions",
+        JSON.stringify({ inbox: true, sentbox: false })
+      );
+      state.selectOption = JSON.stringify({ inbox: true, sentbox: false });
     },
   },
 });

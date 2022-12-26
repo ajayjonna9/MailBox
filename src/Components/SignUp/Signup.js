@@ -7,6 +7,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../Store/Reducers/AuthReducer";
+import { mailActions } from "../Store/Reducers/MailactionsReducer";
 
 const Signup = () => {
   const email = useRef();
@@ -46,6 +47,7 @@ const Signup = () => {
             email: res.data.email,
           };
           dispatcher(authActions.addtoken(values));
+          dispatcher(mailActions.setingMailOptions());
           console.log("signup  success");
           // navigator("/");
         } catch (err) {

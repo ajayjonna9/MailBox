@@ -24,6 +24,13 @@ const MailItem = (props) => {
   // for (let i = 0; i < 20; i++){
   //   message=message+props.message[i]
   // }
+  let isRead;
+
+  for (let i of props.MailReadarr) {
+    if (i.id === props.id) {
+      isRead = i.isRead;
+    }
+  }
   const onDelete = async () => {
     try {
       if (props.method === "sent") {
@@ -57,11 +64,7 @@ const MailItem = (props) => {
       <div className=" flex-grow-1 d-flex flex-row" onClick={setRead}>
         {console.log("gg", props.MailReadarr[props.index], mailarr)}
         <span
-          className={
-            props.method === "inbox" && !props.MailReadarr[props.index]
-              ? "unread"
-              : "read"
-          }
+          className={props.method === "inbox" && !isRead ? "unread" : "read"}
         >
           ●
         </span>

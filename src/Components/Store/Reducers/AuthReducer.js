@@ -38,6 +38,8 @@ const authSlice = createSlice({
 
       state.isLoggedin = false;
       state.isFirst = true;
+      localStorage.removeItem("mailoptions");
+      localStorage.removeItem("useremail");
       clearTimeout(window.interval);
     },
     resetIsFirst: (state) => {

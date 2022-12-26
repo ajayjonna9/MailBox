@@ -9,12 +9,16 @@ const InBox = () => {
   const navigator = useNavigate();
   const dispatcher = useDispatch();
 
-  const inbox = useSelector((state) => state.mailactions.selectOption.inbox);
+  const mailOptions = useSelector((state) =>
+    JSON.parse(state.mailactions.selectOption)
+  );
   const inboxarr = useSelector((state) => state.email.inboxMailarr);
   const readarr = useSelector((state) => state.email.inBoxMailRead);
   const count = inboxarr.length - readarr.length;
+  const inbox = mailOptions.inbox;
   const onClickInbox = () => {
     navigator("/home");
+    console.log("inbox", inbox);
     dispatcher(mailActions.setInBox());
   };
   return (

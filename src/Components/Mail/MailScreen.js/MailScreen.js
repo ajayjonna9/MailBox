@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import ExpandMail from "./ExpandMail";
 import MailItem from "./MailItem";
@@ -13,10 +13,11 @@ const MailScreen = (props) => {
   // const sentMailRead = useSelector((state) => state.email.sentMailRead);
   const mailarr = useSelector((state) => state.email.inboxMailarr);
   const [message, setMessage] = useState("Loading...");
-
-  setTimeout(() => {
-    setMessage("No Emails");
-  }, 2000);
+  useEffect(() => {
+    setTimeout(() => {
+      setMessage("No Emails");
+    }, 3000);
+  }, [message]);
 
   return (
     <div className="w-100 mailscreenbackground">

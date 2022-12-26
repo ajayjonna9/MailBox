@@ -20,7 +20,9 @@ const emailSlice = createSlice({
           (item) => item.id === action.payload.id
         );
         if (!index) {
-          state.sentMailarr.push(action.payload);
+          const newarr = [action.payload, ...state.sentMailarr];
+          // state.sentMailarr.push(action.payload);
+          state.sentMailarr = newarr;
         }
       }
     },
@@ -45,7 +47,9 @@ const emailSlice = createSlice({
           (item) => item.id === action.payload.id
         );
         if (!index) {
-          state.inboxMailarr.push(action.payload);
+          const newarr = [action.payload, ...state.inboxMailarr];
+          // state.inboxMailarr.push(action.payload);
+          state.inboxMailarr = newarr;
         }
       }
     },
@@ -53,7 +57,18 @@ const emailSlice = createSlice({
       const index = state.inboxMailarr.findIndex(
         (item) => item.id === action.payload
       );
-      state.inBoxMailRead[index] = true;
+      const element = state.inBoxMailRead.find(
+        (item) => item.id === action.payload
+      );
+      if (!element) {
+        const newobj = {
+          id: action.payload,
+          isRead: true,
+        };
+        state.inBoxMailRead = [newobj, ...state.inBoxMailRead];
+        // state.inBoxMailRead[index] = true;
+      }
+
       state.clickedId = index;
       localStorage.setItem("clickedid", index);
       console.log(index);
@@ -78,7 +93,9 @@ const emailSlice = createSlice({
         (item) => item.id !== action.payload
       );
       state.inboxMailarr = [...newarr];
-      const newread = state.inBoxMailRead.filter((item, ind) => ind !== index);
+      const newread = state.inBoxMailRead.filter(
+        (item, ind) => item.id !== action.payload
+      );
       state.inBoxMailRead = [...newread];
     },
     onLogoutEmail: (state) => {

@@ -9,12 +9,15 @@ import "./MailOptions.css";
 const SentBox = () => {
   const navigator = useNavigate();
   const dispatcher = useDispatch();
-  const sentbox = useSelector(
-    (state) => state.mailactions.selectOption.sentbox
+  const mailOptions = useSelector((state) =>
+    JSON.parse(state.mailactions.selectOption)
   );
+  const sentbox = mailOptions.sentbox;
 
   const onClickSentBox = () => {
     navigator("/sent");
+    console.log(sentbox);
+    console.log(mailOptions);
     dispatcher(mailActions.setSentBox());
   };
   return (

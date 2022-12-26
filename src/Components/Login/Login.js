@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 import authreducer, { authActions } from "../Store/Reducers/AuthReducer";
 import { useDispatch } from "react-redux";
+import { mailActions } from "../Store/Reducers/MailactionsReducer";
 
 const Login = () => {
   const email = useRef();
@@ -49,6 +50,7 @@ const Login = () => {
         };
 
         dispatcher(authActions.addtoken(values));
+        dispatcher(mailActions.setingMailOptions());
         console.log("login success");
         navigator("/home");
       } catch (err) {

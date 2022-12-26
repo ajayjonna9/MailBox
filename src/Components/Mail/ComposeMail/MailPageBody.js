@@ -84,7 +84,7 @@ const MailPageBody = () => {
 
         <Form.Control
           as="textarea"
-          placeholder="Leave a comment here"
+          placeholder="Message here"
           className="mt-2 h-auto"
           rows="8"
           ref={message}
@@ -94,7 +94,7 @@ const MailPageBody = () => {
           <Button variant="success" type="submit" className="mt-4 mb-1">
             submit
           </Button>
-          <MailPageFooterIcons />
+          {/* <MailPageFooterIcons /> */}
         </div>
       </Form>
     </div>
