@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/MailBox/static/css/main.adea34f1.css",
+    "main.js": "/MailBox/static/js/main.7569d237.js",
+    "static/js/787.5bbe79e1.chunk.js": "/MailBox/static/js/787.5bbe79e1.chunk.js",
+    "static/media/bootstrap-icons.woff?": "/MailBox/static/media/bootstrap-icons.6959d0d983ee318f8880.woff",
+    "static/media/bootstrap-icons.woff2?": "/MailBox/static/media/bootstrap-icons.b2e5aab643c6f0fd2da6.woff2",
+    "static/media/email1.jpg": "/MailBox/static/media/email1.75cd7feec900b552e4c3.jpg",
+    "static/media/loginpic.jpg": "/MailBox/static/media/loginpic.0c0b909fc44c3cb5605b.jpg",
+    "static/media/logo.svg": "/MailBox/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/MailBox/index.html",
+    "main.adea34f1.css.map": "/MailBox/static/css/main.adea34f1.css.map",
+    "main.7569d237.js.map": "/MailBox/static/js/main.7569d237.js.map",
+    "787.5bbe79e1.chunk.js.map": "/MailBox/static/js/787.5bbe79e1.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.adea34f1.css",
+    "static/js/main.7569d237.js"
+  ]
+}
