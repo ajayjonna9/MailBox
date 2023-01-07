@@ -53,10 +53,10 @@ const MailItem = (props) => {
   const setRead = () => {
     if (props.method === "sent") {
       dispatcher(emailActions.setSentMailRead(props.id));
-      navigator(`/sent/:${props.id}`);
+      navigator(`/sent/${props.id}`);
     } else if (props.method === "inbox") {
       dispatcher(emailActions.setInboxMailRead(props.id));
-      navigator(`/:${props.id}`);
+      navigator(`/${props.id}`);
     }
   };
   return (

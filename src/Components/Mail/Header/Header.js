@@ -8,6 +8,8 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { authActions } from "../../Store/Reducers/AuthReducer";
 import { emailActions } from "../../Store/Reducers/EmailReducer";
+import { mailActions } from "../../Store/Reducers/MailactionsReducer";
+
 import "./Header.css";
 
 function Header() {
@@ -15,7 +17,9 @@ function Header() {
   const navigator = useNavigate();
   const onLogout = () => {
     dispatcher(authActions.onLogout());
+    dispatcher(mailActions.resetCompose());
     dispatcher(emailActions.onLogoutEmail());
+
     navigator("/login");
   };
   return (

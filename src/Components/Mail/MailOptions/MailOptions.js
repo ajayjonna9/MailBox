@@ -1,6 +1,6 @@
 import React from "react";
 import Compose from "./Compose";
-import DeletedItems from "./DeletedItems";
+
 import InBox from "./InBox";
 import SentBox from "./SentBox";
 import "./MailOptions.css";
@@ -12,7 +12,6 @@ const MailOptions = () => {
         <Compose />
         <InBox />
         <SentBox />
-        <DeletedItems />
       </div>
     </div>
   );

@@ -5,6 +5,7 @@ import MailPage from "./ComposeMail/MailPage";
 import ExpandMail from "./MailScreen.js/ExpandMail";
 import { useSelector } from "react-redux";
 import MailScreenHeader from "./MailScreen.js/MailScreenHeader/MailScreenHeader";
+import { useParams } from "react-router-dom";
 
 const MainExpand = () => {
   // const clickedid = localStorage.getItem("clickedid");
@@ -12,9 +13,18 @@ const MainExpand = () => {
   // const inBoxEmail = useSelector((state) => state.email.inboxMailarr);
   // const Email = useSelector((state) => state.email.inboxMailarr[clickedid]);
   const clickedid = localStorage.getItem("clickedid");
+  const { id } = useParams();
   const isCompose = useSelector((state) => state.mailactions.isCompose);
-  const inBoxEmail = useSelector((state) => state.email.sentMailarr);
-  const Email = useSelector((state) => state.email.inboxMailarr[clickedid]);
+  // const inBoxEmail = useSelector((state) => state.email.sentMailarr);
+  const inBoxEmail = useSelector((state) => state.email.inboxMailarr);
+  let Email;
+  for (let i of inBoxEmail) {
+    console.log("i val..", i.id.length, id.length);
+    if (i.id === id) {
+      Email = i;
+      console.log("i val", i);
+    }
+  }
 
   return (
     <div>
